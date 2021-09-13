@@ -20,7 +20,8 @@ class PlayerType extends AbstractType
             ->add('playTime')
             ->add('goalScored')
             ->add('decisivePass')
-            ->add('seasons')
+            ->add('season', null, ['choice_label' => 'year'])
+            ->add('teams', null, ['choice_label' => 'name'])
         ;
     }
 

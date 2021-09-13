@@ -17,7 +17,7 @@
         {% for season in seasons %}
             <tr>
                 <td>{{ season.id }}</td>
-                <td>{{ season.year ? season.year|date('Y-m-d') : '' }}</td>
+                <td>{{ season.year }}</td>
                 <td>
                     <a href="{{ path('season_show', {'id': season.id}) }}">show</a>
                     <a href="{{ path('season_edit', {'id': season.id}) }}">edit</a>

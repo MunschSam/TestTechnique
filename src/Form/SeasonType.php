@@ -13,8 +13,6 @@ class SeasonType extends AbstractType
     {
         $builder
             ->add('year')
-            ->add('teams')
-            ->add('players')
         ;
     }
 

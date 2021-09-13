@@ -30,13 +30,20 @@ class Teams
     private $level;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Season::class, inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="teams")
      */
     private $seasons;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Player::class, mappedBy="teams")
+     */
+    private $players;
+
+
+
     public function __construct()
     {
-        $this->seasons = new ArrayCollection();
+        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,26 +75,44 @@ class Teams
         return $this;
     }
 
-    /**
-     * @return Collection|Season[]
-     */
-    public function getSeasons(): Collection
+    public function getSeasons(): ?Season
     {
         return $this->seasons;
     }
 
-    public function addSeason(Season $season): self
+    public function setSeasons(?Season $seasons): self
     {
-        if (!$this->seasons->contains($season)) {
-            $this->seasons[] = $season;
+        $this->seasons = $seasons;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Player[]
+     */
+    public function getPlayers(): Collection
+    {
+        return $this->players;
+    }
+
+    public function addPlayer(Player $player): self
+    {
+        if (!$this->players->contains($player)) {
+            $this->players[] = $player;
+            $player->setTeams($this);
         }
 
         return $this;
     }
 
-    public function removeSeason(Season $season): self
+    public function removePlayer(Player $player): self
     {
-        $this->seasons->removeElement($season);
+        if ($this->players->removeElement($player)) {
+            // set the owning side to null (unless already changed)
+            if ($player->getTeams() === $this) {
+                $player->setTeams(null);
+            }
+        }
 
         return $this;
     }

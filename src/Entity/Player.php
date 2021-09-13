@@ -60,14 +60,16 @@ class Player
     private $decisivePass;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Season::class, mappedBy="players")
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="players")
      */
-    private $seasons;
+    private $season;
 
-    public function __construct()
-    {
-        $this->seasons = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Teams::class, inversedBy="players")
+     */
+    private $teams;
+
+
 
     public function getId(): ?int
     {
@@ -170,30 +172,30 @@ class Player
         return $this;
     }
 
-    /**
-     * @return Collection|Season[]
-     */
-    public function getSeasons(): Collection
+    public function getSeason(): ?Season
     {
-        return $this->seasons;
+        return $this->season;
     }
 
-    public function addSeason(Season $season): self
+    public function setSeason(?Season $season): self
     {
-        if (!$this->seasons->contains($season)) {
-            $this->seasons[] = $season;
-            $season->addPlayer($this);
-        }
+        $this->season = $season;
 
         return $this;
     }
 
-    public function removeSeason(Season $season): self
+    public function getTeams(): ?Teams
     {
-        if ($this->seasons->removeElement($season)) {
-            $season->removePlayer($this);
-        }
+        return $this->teams;
+    }
+
+    public function setTeams(?Teams $teams): self
+    {
+        $this->teams = $teams;
 
         return $this;
     }
+
+    
+  
 }
