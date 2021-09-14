@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Player;
 /**
  * @Route("/season")
  */
@@ -53,8 +53,9 @@ class SeasonController extends AbstractController
      */
     public function show(Season $season): Response
     {
+        $players = $season->getPlayers();
         return $this->render('season/show.html.twig', [
-            'season' => $season,
+            'season' => $season, 'players' => $players
         ]);
     }
 

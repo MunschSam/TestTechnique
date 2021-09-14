@@ -14,7 +14,7 @@ class TeamsType extends AbstractType
         $builder
             ->add('name')
             ->add('level')
-            ->add('seasons')
+            ->add('seasons', null, ['choice_label' => 'year', 'expanded' => true, 'multiple' => true])
         ;
     }
 

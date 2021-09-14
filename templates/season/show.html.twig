@@ -18,6 +18,12 @@
         </tbody>
     </table>
 
+    {% for player in players %}
+        <li><a href="{{path("player_show", {id :player.id }) }}">{{ player.name }} </a></li>
+    {% else %}
+        <li>Aucune saison pour ce club</li>
+    {% endfor %}
+
     <a href="{{ path('season_index') }}">back to list</a>
 
     <a href="{{ path('season_edit', {'id': season.id}) }}">edit</a>

@@ -29,21 +29,24 @@ class Teams
      */
     private $level;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="teams")
-     */
-    private $seasons;
+    
 
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="teams")
      */
     private $players;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Season::class, inversedBy="teams")
+     */
+    private $seasons;
+
 
 
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->seasons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,17 +78,7 @@ class Teams
         return $this;
     }
 
-    public function getSeasons(): ?Season
-    {
-        return $this->seasons;
-    }
-
-    public function setSeasons(?Season $seasons): self
-    {
-        $this->seasons = $seasons;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection|Player[]
@@ -113,6 +106,30 @@ class Teams
                 $player->setTeams(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Season[]
+     */
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
+
+    public function addSeason(Season $season): self
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+        }
+
+        return $this;
+    }
+
+    public function removeSeason(Season $season): self
+    {
+        $this->seasons->removeElement($season);
 
         return $this;
     }

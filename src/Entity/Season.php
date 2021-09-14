@@ -24,15 +24,17 @@ class Season
      */
     private $year;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Teams::class, mappedBy="seasons")
-     */
-    private $teams;
+    
 
     /**
      * @ORM\OneToMany(targetEntity=Player::class, mappedBy="season")
      */
     private $players;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Teams::class, mappedBy="seasons")
+     */
+    private $teams;
 
     public function __construct()
     {
@@ -60,35 +62,9 @@ class Season
         return $this;
     }
 
-    /**
-     * @return Collection|Teams[]
-     */
-    public function getTeams(): Collection
-    {
-        return $this->teams;
-    }
+    
 
-    public function addTeam(Teams $team): self
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-            $team->setSeasons($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTeam(Teams $team): self
-    {
-        if ($this->teams->removeElement($team)) {
-            // set the owning side to null (unless already changed)
-            if ($team->getSeasons() === $this) {
-                $team->setSeasons(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection|Player[]
@@ -115,6 +91,33 @@ class Season
             if ($player->getSeason() === $this) {
                 $player->setSeason(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Teams[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Teams $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->addSeason($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Teams $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            $team->removeSeason($this);
         }
 
         return $this;
