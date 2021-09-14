@@ -13,7 +13,7 @@ class SeasonFixtures extends Fixture
         for ($i = 1; $i <= 10; $i++) {  
             $season = new Season();  
             $season->setYear(mt_rand(10, 100));  
-            $manager->persist($season);  
+            $manager->persist($season); 
         }
         $manager->flush();
     }

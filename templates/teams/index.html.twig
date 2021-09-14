@@ -6,19 +6,24 @@
     <div class="uk-flex">
     <h1>Teams index</h1>
     <div class="uk-margin-left">
-    <a href="{{ path('teams_new') }}">Create new</a>
+    <a href="{{ path('teams_new') }}">Ajouter un club</a>
+    </div>
+    <div class="uk-margin-left">
+    <a href="{{ path('player_new') }}">Ajouter un joueur</a>
     </div>
     </div>
   
-    <div class="uk-flex">
+    <div class="uk-child-width-1-4@m" uk-grid>
         {% for team in teams %}
-            <div class="uk-card uk-card-default uk-card-body uk-border-rounded uk-margin-medium-left">
+        <div class="uk-flex">
+            <div class="uk-card uk-card-default uk-card-body uk-border-rounded uk-margin-medium-left uk-margin-bottom">
                 <p>Club : {{ team.name }}</p>
                 <p>Niveau : {{ team.level }}</p>
                 
                     <a href="{{ path('teams_show', {'id': team.id}) }}">Details</a>
                
-            </div>      
+            </div>  
+            </div>    
         {% endfor %}
     </div>     
         </tbody>
