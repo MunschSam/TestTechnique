@@ -3,26 +3,20 @@
 {% block title %}Season index{% endblock %}
 
 {% block body %}
-    <h1>Season index</h1>
-
+<div class="uk-flex uk-margin-left">
+    <h1>Saison</h1>
+<div class="uk-margin-left">
+    <a href="{{ path('season_new') }}">Create new</a>
+</div>
+</div>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Year</th>
-                <th>actions</th>
-            </tr>
-        </thead>
         <tbody>
         {% for season in seasons %}
             <tr>
-                <td>{{ season.id }}</td>
-                <td>{{ season.year }}</td>
-                <td>
-                    <a href="{{ path('season_show', {'id': season.id}) }}">show</a>
-                    <a href="{{ path('season_edit', {'id': season.id}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="uk-margin-left">
+                <li><a href="{{ path('season_show', {'id': season.id}) }}">{{ season.year }}</a></li>
+            </div>  
+            
         {% else %}
             <tr>
                 <td colspan="3">no records found</td>
@@ -31,5 +25,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('season_new') }}">Create new</a>
+    
 {% endblock %}

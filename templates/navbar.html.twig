@@ -1,0 +1,23 @@
+<nav class="uk-navbar-container uk-margin" uk-navbar>
+    <div class="uk-navbar-center">
+
+        <div class="uk-navbar-center-left"><div>
+            <ul class="uk-navbar-nav">
+            <li><a href="{{ path('teams_index') }}">Club</a></li>
+            <li><a href="{{ path('season_index') }}">Saisons</a></li>
+            </ul>
+        </div></div>
+        <div class="uk-navbar-item uk-logo" uk-icon="icon: world; ratio: 2"></div>
+        <div class="uk-navbar-center-right"><div>
+            
+    <div class="uk-margin-large-left uk-margin-top">        
+            {% if app.user %}
+    {{ app.user.email }}
+    <a class="uk-margin-left" href="{{ path('app_logout') }}"> Se déconnecter</a>
+{% else %}
+    <a href="{{ path('app_login') }}"> Se connecter</a>
+{% endif %}
+</div>
+</div></div>
+</div>
+</nav>
