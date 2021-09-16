@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Teams;
 
 /**
  * @Route("/player")
@@ -53,8 +54,9 @@ class PlayerController extends AbstractController
      */
     public function show(Player $player): Response
     {
+        $team = $player->getTeams();
         return $this->render('player/show.html.twig', [
-            'player' => $player,
+            'player' => $player, 'team' => $team
         ]);
     }
 
